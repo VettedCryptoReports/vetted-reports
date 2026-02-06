@@ -1,0 +1,32 @@
+var allReports = [
+  {
+    handle: "blknoiz06",
+    type: "KOL",
+    score: "8/10",
+    risk: "LOW",
+    concerns: "No red flags found. No documented associations with rug pulls or fraudulent activity identified in public records.",
+    positives: "High-conviction analyst with 10k+ subscribers on Substack. Provides structured market research and long-form analysis. Transparent about market outlooks.",
+    summary: "blknoiz06 is a well-established crypto analyst known for in-depth market reports and newsletter content via Substack. Unlike many KOLs, they focus on higher-level thesis-driven investing rather than rapid-fire shilling. There are no credible scam accusations or rug pull associations. Their track record reflects a professional approach to the space with high community trust.",
+    date: "2026-02-06"
+  },
+  {
+    handle: "lexaprotrader",
+    type: "KOL",
+    score: "4/10",
+    risk: "HIGH",
+    concerns: "Labeled serial scammer by community; removed from X Meme Trading starter packs after backlash; accused of shilling projects that rug pulled investors; 47% win rate on XSCAN (below average).",
+    positives: "Documented 47% win rate with 7x avg multiplier on winners per XSCAN; early identifier of Solana trends; high community engagement and recognizable in meme coin space.",
+    summary: "LexaproTrader is a controversial Solana-focused crypto influencer with significant reach but a deeply polarized reputation. XSCAN data shows a 47% win rate with respectable multipliers on winners but the account faced severe public backlash including removal from X official starter packs due to persistent community reports of serial scamming and promotion of rug-pull projects. The combination of decent performance metrics alongside serious trust issues warrants a HIGH risk classification.",
+    date: "2026-02-06"
+  }
+];
+
+function escapeHTML(str) { var div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+function renderCards(reports) { var container = document.getElementById('cardsContainer'); if (reports.length === 0) { container.innerHTML = '<div class="no-results">No reports found.</div>'; return; } var html = ''; for (var i = 0; i < reports.length; i++) { var r = reports[i]; html += '<div class="card" id="card-' + i + '">' + '<div class="card-header" onclick="toggleCard(' + i + ')">' + '<div class="card-left">' + '<span class="handle">@' + escapeHTML(r.handle) + '</span>' + '<span class="type-badge">' + escapeHTML(r.type) + '</span>' + '<span class="score-badge">📊 ' + escapeHTML(r.score) + '</span>' + '<span class="risk-badge risk-' + r.risk + '">' + r.risk + '</span>' + '</div>' + '<span class="expand-icon">▼</span>' + '</div>' + '<div class="card-body">' + '<div class="section"><div class="section-title">🚨 Red Flags</div><div class="section-text">' + escapeHTML(r.concerns) + '</div></div>' + '<div class="section"><div class="section-title">✅ Positives</div><div class="section-text">' + escapeHTML(r.positives) + '</div></div>' + '<div class="section"><div class="section-title">📋 Summary</div><div class="section-text">' + escapeHTML(r.summary) + '</div></div>' + '<div class="date-text">Vetted: ' + escapeHTML(r.date) + '</div>' + '</div></div>'; } container.innerHTML = html; }
+
+function toggleCard(i) { document.getElementById('card-' + i).classList.toggle('expanded'); }
+
+document.getElementById('searchInput').addEventListener('input', function() { var q = this.value.toLowerCase().trim(); var filtered = []; if (q) { for (var i = 0; i < allReports.length; i++) { if (allReports[i].handle.toLowerCase().indexOf(q) !== -1) filtered.push(allReports[i]); } } else { filtered = allReports; } renderCards(filtered); });
+
+renderCards(allReports);
