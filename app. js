@@ -1,32 +1,47 @@
-var allReports = [
+var reports = [
   {
     handle: "blknoiz06",
     type: "KOL",
-    score: "8/10",
+    score: 8,
     risk: "LOW",
-    concerns: "No red flags found. No documented associations with rug pulls or fraudulent activity identified in public records.",
+    redFlags: "No red flags found. No documented associations with rug pulls or fraudulent activity identified in public records.",
     positives: "High-conviction analyst with 10k+ subscribers on Substack. Provides structured market research and long-form analysis. Transparent about market outlooks.",
     summary: "blknoiz06 is a well-established crypto analyst known for in-depth market reports and newsletter content via Substack. Unlike many KOLs, they focus on higher-level thesis-driven investing rather than rapid-fire shilling. There are no credible scam accusations or rug pull associations. Their track record reflects a professional approach to the space with high community trust.",
-    date: "2026-02-06"
+    date: "2025-06-14"
   },
   {
     handle: "lexaprotrader",
     type: "KOL",
-    score: "4/10",
+    score: 4,
     risk: "HIGH",
-    concerns: "Labeled serial scammer by community; removed from X Meme Trading starter packs after backlash; accused of shilling projects that rug pulled investors; 47% win rate on XSCAN (below average).",
-    positives: "Documented 47% win rate with 7x avg multiplier on winners per XSCAN; early identifier of Solana trends; high community engagement and recognizable in meme coin space.",
-    summary: "LexaproTrader is a controversial Solana-focused crypto influencer with significant reach but a deeply polarized reputation. XSCAN data shows a 47% win rate with respectable multipliers on winners but the account faced severe public backlash including removal from X official starter packs due to persistent community reports of serial scamming and promotion of rug-pull projects. The combination of decent performance metrics alongside serious trust issues warrants a HIGH risk classification.",
-    date: "2026-02-06"
+    redFlags: "Serial scammer accusations. Removed from X starter packs. Multiple communities have flagged this account for promoting rug pulls. 47% XSCAN win rate.",
+    positives: "Large following. Occasionally shares market commentary that generates engagement.",
+    summary: "lexaprotrader has been flagged by multiple crypto communities as a serial scammer. They were removed from curated X starter packs due to repeated accusations of promoting rug pulls and exit scams. On-chain data from XSCAN shows a 47% win rate, below average. While they maintain a large following and active presence, the volume of independent scam accusations makes them a high-risk follow for trading signals.",
+    date: "2025-06-14"
   }
 ];
 
-function escapeHTML(str) { var div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+function getRiskColor(risk) { if (risk === "HIGH") return "#f85149"; if (risk === "MEDIUM") return "#d29922"; if (risk === "LOW") return "#3fb950"; return "#8b949e"; }
 
-function renderCards(reports) { var container = document.getElementById('cardsContainer'); if (reports.length === 0) { container.innerHTML = '<div class="no-results">No reports found.</div>'; return; } var html = ''; for (var i = 0; i < reports.length; i++) { var r = reports[i]; html += '<div class="card" id="card-' + i + '">' + '<div class="card-header" onclick="toggleCard(' + i + ')">' + '<div class="card-left">' + '<span class="handle">@' + escapeHTML(r.handle) + '</span>' + '<span class="type-badge">' + escapeHTML(r.type) + '</span>' + '<span class="score-badge">📊 ' + escapeHTML(r.score) + '</span>' + '<span class="risk-badge risk-' + r.risk + '">' + r.risk + '</span>' + '</div>' + '<span class="expand-icon">▼</span>' + '</div>' + '<div class="card-body">' + '<div class="section"><div class="section-title">🚨 Red Flags</div><div class="section-text">' + escapeHTML(r.concerns) + '</div></div>' + '<div class="section"><div class="section-title">✅ Positives</div><div class="section-text">' + escapeHTML(r.positives) + '</div></div>' + '<div class="section"><div class="section-title">📋 Summary</div><div class="section-text">' + escapeHTML(r.summary) + '</div></div>' + '<div class="date-text">Vetted: ' + escapeHTML(r.date) + '</div>' + '</div></div>'; } container.innerHTML = html; }
+function renderCards(data) { var container = document.getElementById("cardsContainer"); container.innerHTML = "";
 
-function toggleCard(i) { document.getElementById('card-' + i).classList.toggle('expanded'); }
+if (data.length === 0) { container.innerHTML = '<div style="text-align:center;color:#8b949e;padding:60px 20px;font-size:16px;">No reports found</div>'; return; }
 
-document.getElementById('searchInput').addEventListener('input', function() { var q = this.value.toLowerCase().trim(); var filtered = []; if (q) { for (var i = 0; i < allReports.length; i++) { if (allReports[i].handle.toLowerCase().indexOf(q) !== -1) filtered.push(allReports[i]); } } else { filtered = allReports; } renderCards(filtered); });
+for (var i = 0; i < data.length; i++) { var r = data[i]; var riskColor = getRiskColor(r.risk); var cardId = "details-" + i;
 
-renderCards(allReports);
+var card = document.createElement("div"); card.style.cssText = "background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:16px;cursor:pointer;transition:border-color 0.2s;"; card.onmouseover = function() { this.style.borderColor = "#00ff88"; }; card.onmouseout = function() { this.style.borderColor = "#30363d"; };
+
+card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">' + '<div style="display:flex;align-items:center;gap:12px;">' + '<div style="font-size:20px;font-weight:700;color:#e6edf3;">@' + r.handle + '</div>' + '<div style="background:#21262d;color:#8b949e;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;">' + r.type + '</div>' + '</div>' + '<div style="display:flex;align-items:center;gap:16px;">' + '<div style="font-size:28px;font-weight:800;color:#00ff88;">' + r.score + '/10</div>' + '<div style="background:' + riskColor + '22;color:' + riskColor + ';padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid ' + riskColor + '44;">' + r.risk + '</div>' + '<div style="color:#484f58;font-size:18px;" id="arrow-' + i + '">▼</div>' + '</div>' + '</div>' + '<div id="' + cardId + '" style="display:none;margin-top:20px;border-top:1px solid #21262d;padding-top:20px;">' + '<div style="margin-bottom:16px;"><div style="color:#f85149;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🚨 Red Flags</div><div style="color:#c9d1d9;font-size:14px;line-height:1.6;">' + r.redFlags + '</div></div>' + '<div style="margin-bottom:16px;"><div style="color:#3fb950;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">✅ Positives</div><div style="color:#c9d1d9;font-size:14px;line-height:1.6;">' + r.positives + '</div></div>' + '<div style="margin-bottom:16px;"><div style="color:#58a6ff;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Summary</div><div style="color:#c9d1d9;font-size:14px;line-height:1.6;">' + r.summary + '</div></div>' + '<div style="color:#484f58;font-size:12px;margin-top:12px;">Report date: ' + r.date + '</div>' + '</div>';
+
+(function(id, idx) { card.onclick = function() { var el = document.getElementById(id); var arrow = document.getElementById("arrow-" + idx); if (el.style.display === "none") { el.style.display = "block"; arrow.textContent = "▲"; } else { el.style.display = "none"; arrow.textContent = "▼"; } }; })(cardId, i);
+
+container.appendChild(card); } }
+
+function updateStats(data) { document.getElementById("totalReports").textContent = data.length; var total = 0; var highRisk = 0; for (var i = 0; i < data.length; i++) { total += data[i].score; if (data[i].risk === "HIGH") highRisk++; } document.getElementById("avgScore").textContent = data.length > 0 ? (total / data.length).toFixed(1) + "/10" : "—"; document.getElementById("highRiskCount").textContent = highRisk; }
+
+function filterReports() { var query = document.getElementById("searchInput").value.toLowerCase().trim(); var filtered = []; for (var i = 0; i < reports.length; i++) { if (reports[i].handle.toLowerCase().indexOf(query) !== -1) { filtered.push(reports[i]); } } renderCards(filtered); updateStats(filtered); }
+
+document.getElementById("searchInput").addEventListener("input", filterReports);
+
+renderCards(reports); updateStats(reports);
+
