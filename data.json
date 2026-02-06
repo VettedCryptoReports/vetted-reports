@@ -1,0 +1,22 @@
+[
+  {
+    "handle": "blknoiz06",
+    "type": "KOL",
+    "score": 8,
+    "risk": "LOW",
+    "redFlags": "No red flags found. No documented associations with rug pulls or fraudulent activity identified in public records.",
+    "positives": "High-conviction analyst with 10k+ subscribers on Substack. Provides structured market research and long-form analysis. Transparent about market outlooks.",
+    "summary": "blknoiz06 is a well-established crypto analyst known for in-depth market reports and newsletter content via Substack. Unlike many KOLs, they focus on higher-level thesis-driven investing rather than rapid-fire shilling. There are no credible scam accusations or rug pull associations. Their track record reflects a professional approach to the space with high community trust.",
+    "date": "2025-06-14"
+  },
+  {
+    "handle": "lexaprotrader",
+    "type": "KOL",
+    "score": 4,
+    "risk": "HIGH",
+    "redFlags": "Serial scammer accusations. Removed from X starter packs. Multiple communities have flagged this account for promoting rug pulls. 47% XSCAN win rate.",
+    "positives": "Large following. Occasionally shares market commentary that generates engagement.",
+    "summary": "lexaprotrader has been flagged by multiple crypto communities as a serial scammer. They were removed from curated X starter packs due to repeated accusations of promoting rug pulls and exit scams. On-chain data from XSCAN shows a 47% win rate, below average. While they maintain a large following and active presence, the volume of independent scam accusations makes them a high-risk follow for trading signals.",
+    "date": "2025-06-14"
+  }
+]
