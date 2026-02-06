@@ -18,5 +18,15 @@
     "positives": "Large following. Occasionally shares market commentary that generates engagement.",
     "summary": "lexaprotrader has been flagged by multiple crypto communities as a serial scammer. They were removed from curated X starter packs due to repeated accusations of promoting rug pulls and exit scams. On-chain data from XSCAN shows a 47% win rate, below average. While they maintain a large following and active presence, the volume of independent scam accusations makes them a high-risk follow for trading signals.",
     "date": "2025-06-14"
+  },
+  {
+    "handle": "ansem",
+    "type": "KOL",
+    "score": 9,
+    "risk": "LOW",
+    "redFlags": "No significant red flags; ZachXBT accusations of low-cap manipulation unsubstantiated",
+    "positives": "Early WIF call (520x), SOL (170x), BONK (80x), MICHI community takeover backed by $30M investment, high community leadership",
+    "summary": "Ansem (blknoiz06) is one of the most credible Solana KOLs, known as the Godfather of WIF. Exceptional track record with early calls on major tokens. No confirmed rug pulls or scams directly attributed to him.",
+    "date": "2026-02-06"
   }
 ]
