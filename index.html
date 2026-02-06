@@ -1,32 +1,86 @@
-var allReports = [
-  {
-    handle: "blknoiz06",
-    type: "KOL",
-    score: "8/10",
-    risk: "LOW",
-    concerns: "No red flags found. No documented associations with rug pulls or fraudulent activity identified in public records.",
-    positives: "High-conviction analyst with 10k+ subscribers on Substack. Provides structured market research and long-form analysis. Transparent about market outlooks.",
-    summary: "blknoiz06 is a well-established crypto analyst known for in-depth market reports and newsletter content via Substack. Unlike many KOLs, they focus on higher-level thesis-driven investing rather than rapid-fire shilling. There are no credible scam accusations or rug pull associations. Their track record reflects a professional approach to the space with high community trust.",
-    date: "2026-02-06"
-  },
-  {
-    handle: "lexaprotrader",
-    type: "KOL",
-    score: "4/10",
-    risk: "HIGH",
-    concerns: "Labeled serial scammer by community; removed from X Meme Trading starter packs after backlash; accused of shilling projects that rug pulled investors; 47% win rate on XSCAN (below average).",
-    positives: "Documented 47% win rate with 7x avg multiplier on winners per XSCAN; early identifier of Solana trends; high community engagement and recognizable in meme coin space.",
-    summary: "LexaproTrader is a controversial Solana-focused crypto influencer with significant reach but a deeply polarized reputation. XSCAN data shows a 47% win rate with respectable multipliers on winners but the account faced severe public backlash including removal from X official starter packs due to persistent community reports of serial scamming and promotion of rug-pull projects. The combination of decent performance metrics alongside serious trust issues warrants a HIGH risk classification.",
-    date: "2026-02-06"
-  }
-];
+That's the problem — the index.html didn't get updated. Let's fix it:
 
-function escapeHTML(str) { var div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
-
-function renderCards(reports) { var container = document.getElementById('cardsContainer'); if (reports.length === 0) { container.innerHTML = '<div class="no-results">No reports found.</div>'; return; } var html = ''; for (var i = 0; i < reports.length; i++) { var r = reports[i]; html += '<div class="card" id="card-' + i + '">' + '<div class="card-header" onclick="toggleCard(' + i + ')">' + '<div class="card-left">' + '<span class="handle">@' + escapeHTML(r.handle) + '</span>' + '<span class="type-badge">' + escapeHTML(r.type) + '</span>' + '<span class="score-badge">📊 ' + escapeHTML(r.score) + '</span>' + '<span class="risk-badge risk-' + r.risk + '">' + r.risk + '</span>' + '</div>' + '<span class="expand-icon">▼</span>' + '</div>' + '<div class="card-body">' + '<div class="section"><div class="section-title">🚨 Red Flags</div><div class="section-text">' + escapeHTML(r.concerns) + '</div></div>' + '<div class="section"><div class="section-title">✅ Positives</div><div class="section-text">' + escapeHTML(r.positives) + '</div></div>' + '<div class="section"><div class="section-title">📋 Summary</div><div class="section-text">' + escapeHTML(r.summary) + '</div></div>' + '<div class="date-text">Vetted: ' + escapeHTML(r.date) + '</div>' + '</div></div>'; } container.innerHTML = html; }
-
-function toggleCard(i) { document.getElementById('card-' + i).classList.toggle('expanded'); }
-
-document.getElementById('searchInput').addEventListener('input', function() { var q = this.value.toLowerCase().trim(); var filtered = []; if (q) { for (var i = 0; i < allReports.length; i++) { if (allReports[i].handle.toLowerCase().indexOf(q) !== -1) filtered.push(allReports[i]); } } else { filtered = allReports; } renderCards(filtered); });
-
-renderCards(allReports);
+Click on index.html
+Click the pencil icon ✏️
+Ctrl + A to select all
+Delete
+Paste this:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$VETTED — Crypto KOL Trust Verification</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh; }
+  .header { text-align: center; padding: 48px 20px 32px; border-bottom: 1px solid #21262d; }
+  .logo { font-size: 48px; font-weight: 800; color: #00ff88; letter-spacing: -2px; text-shadow: 0 0 40px rgba(0,255,136,0.3); }
+  .tagline { font-size: 18px; color: #8b949e; margin-top: 8px; }
+  .subtitle { font-size: 14px; color: #58a6ff; margin-top: 12px; }
+  .subtitle a { color: #58a6ff; text-decoration: none; }
+  .subtitle a:hover { text-decoration: underline; }
+  .stats-bar { display: flex; justify-content: center; gap: 40px; padding: 20px; background: #161b22; border-bottom: 1px solid #21262d; }
+  .stat { text-align: center; }
+  .stat-value { font-size: 24px; font-weight: 700; color: #00ff88; }
+  .stat-label { font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .search-container { max-width: 600px; margin: 32px auto; padding: 0 20px; }
+  .search-input { width: 100%; padding: 14px 20px; background: #161b22; border: 1px solid #30363d; border-radius: 12px; color: #e6edf3; font-size: 16px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; }
+  .search-input:focus { border-color: #00ff88; }
+  .search-input::placeholder { color: #484f58; }
+  .cards-container { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; display: flex; flex-direction: column; gap: 16px; }
+  .card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+  .card:hover { border-color: #30363d; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; cursor: pointer; user-select: none; }
+  .card-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .handle { font-size: 20px; font-weight: 700; color: #e6edf3; }
+  .score-badge { background: #21262d; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; color: #e6edf3; }
+  .risk-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .risk-HIGH { background: rgba(248,81,73,0.15); color: #f85149; }
+  .risk-MEDIUM { background: rgba(210,153,34,0.15); color: #d29922; }
+  .risk-LOW { background: rgba(0,255,136,0.15); color: #00ff88; }
+  .risk-UNKNOWN { background: rgba(139,148,158,0.15); color: #8b949e; }
+  .expand-icon { font-size: 18px; color: #484f58; transition: transform 0.2s; }
+  .card.expanded .expand-icon { transform: rotate(180deg); }
+  .card-body { display: none; padding: 0 24px 24px; border-top: 1px solid #21262d; }
+  .card.expanded .card-body { display: block; padding-top: 20px; }
+  .section { margin-bottom: 16px; }
+  .section-title { font-size: 13px; font-weight: 600; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .section-text { font-size: 15px; line-height: 1.6; color: #c9d1d9; }
+  .date-text { font-size: 13px; color: #484f58; margin-top: 12px; }
+  .type-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: rgba(88,166,255,0.15); color: #58a6ff; }
+  .no-results { text-align: center; padding: 40px; color: #484f58; font-size: 16px; }
+  .footer { text-align: center; padding: 40px 20px; border-top: 1px solid #21262d; color: #484f58; font-size: 13px; }
+  .footer a { color: #58a6ff; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 24px; }
+  @media (max-width: 600px) { .logo { font-size: 36px; } .tagline { font-size: 15px; } .card-header { padding: 16px; flex-wrap: wrap; gap: 12px; } .handle { font-size: 17px; } .stats-bar { gap: 24px; } .stat-value { font-size: 20px; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">$VETTED</div>
+  <div class="tagline">Crypto KOL Trust Verification</div>
+  <div class="subtitle">Tag <a href="https://x.com/vettedbot" target="_blank">@vettedbot</a> on X to get a trust report</div>
+</div>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value" id="totalReports">2</div><div class="stat-label">Reports</div></div>
+  <div class="stat"><div class="stat-value" id="avgScore">6.0/10</div><div class="stat-label">Avg Score</div></div>
+  <div class="stat"><div class="stat-value" id="highRiskCount">1</div><div class="stat-label">High Risk</div></div>
+</div>
+<div class="search-container">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search by handle (e.g. lexaprotrader)">
+</div>
+<div class="cards-container" id="cardsContainer"></div>
+<div class="footer">
+  Powered by <strong style="color:#00ff88">$VETTED</strong>
+  <div class="footer-links">
+    <a href="https://x.com/vettedbot" target="_blank">@vettedbot on X</a>
+    <a href="https://x.com/i/communities/2018157660827529556" target="_blank">Join the Community</a>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+```*_
